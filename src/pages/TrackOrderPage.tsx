@@ -136,11 +136,11 @@ const OrderSummaryCard = () => (
     </div>
 
     <div className="space-y-1.5 pt-2 border-t border-foreground/5 relative z-10 text-[9px] font-medium text-foreground/70">
-      <div className="flex justify-between"><span>Subtotal</span><span>$24.99</span></div>
+      <div className="flex justify-between"><span>Subtotal</span><span>₹24.99</span></div>
       <div className="flex justify-between"><span>Shipping</span><span className="text-green-400">Free</span></div>
-      <div className="flex justify-between"><span>Taxes</span><span>$2.00</span></div>
+      <div className="flex justify-between"><span>Taxes</span><span>₹2.00</span></div>
       <div className="flex justify-between pt-1.5 border-t border-foreground/5 text-foreground font-black text-xs">
-        <span>Total</span><span>$26.99</span>
+        <span>Total</span><span>₹26.99</span>
       </div>
     </div>
   </GlassCard>

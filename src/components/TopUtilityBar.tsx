@@ -285,7 +285,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
       id: 1,
       name: "Ethiopian Yirgacheffe",
       variant: "Whole Bean • 250g",
-      price: "$24.99",
+      price: "₹24.99",
       img: "https://images.unsplash.com/photo-1524350876685-274059332603?w=200",
       quantity: 1
     },
@@ -293,7 +293,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
       id: 2,
       name: "Chemex Pour-Over Glass",
       variant: "6-Cup Classic",
-      price: "$45.00",
+      price: "₹45.00",
       img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200",
       quantity: 1
     },
@@ -301,7 +301,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
       id: 3,
       name: "Fellow Stagg EKG",
       variant: "Matte Black",
-      price: "$165.00",
+      price: "₹165.00",
       img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200",
       quantity: 1
     }
@@ -383,11 +383,11 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
           <div className="space-y-2 mb-4 bg-white/[0.02] p-3 rounded-lg border border-white/5">
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-white/50">
               <span>Subtotal</span>
-              <span className="text-white/80">$234.99</span>
+              <span className="text-white/80">₹234.99</span>
             </div>
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-red-400">
               <span>Discount</span>
-              <span>-$24.99</span>
+              <span>-₹24.99</span>
             </div>
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-white/50">
               <span>Shipping</span>
@@ -396,7 +396,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
             <div className="h-px w-full bg-white/10 my-2" />
             <div className="flex justify-between items-end">
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Total</span>
-              <span className="text-lg font-black text-[#D4AF37]">$210.00</span>
+              <span className="text-lg font-black text-[#D4AF37]">₹210.00</span>
             </div>
           </div>
           

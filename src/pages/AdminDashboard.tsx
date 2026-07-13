@@ -119,11 +119,11 @@ const PIE_CHART_OPTION = {
 };
 
 const RECENT_ORDERS = [
-  { id: 'ORD-001', customer: 'Alice Cooper', product: 'Ethiopian Yirgacheffe', amount: '$45.00', status: 'Processing', time: '2 mins ago' },
-  { id: 'ORD-002', customer: 'Bob Marley', product: 'Niche Zero Grinder', amount: '$699.00', status: 'Shipped', time: '15 mins ago' },
-  { id: 'ORD-003', customer: 'Charlie Puth', product: 'Fellow Stagg EKG', amount: '$165.00', status: 'Delivered', time: '1 hr ago' },
-  { id: 'ORD-004', customer: 'Diana Prince', product: 'Chemex 8-Cup', amount: '$48.00', status: 'Processing', time: '2 hrs ago' },
-  { id: 'ORD-005', customer: 'Bruce Wayne', product: 'Panama Geisha', amount: '$120.00', status: 'Shipped', time: '3 hrs ago' },
+  { id: 'ORD-001', customer: 'Alice Cooper', product: 'Ethiopian Yirgacheffe', amount: '₹45.00', status: 'Processing', time: '2 mins ago' },
+  { id: 'ORD-002', customer: 'Bob Marley', product: 'Niche Zero Grinder', amount: '₹699.00', status: 'Shipped', time: '15 mins ago' },
+  { id: 'ORD-003', customer: 'Charlie Puth', product: 'Fellow Stagg EKG', amount: '₹165.00', status: 'Delivered', time: '1 hr ago' },
+  { id: 'ORD-004', customer: 'Diana Prince', product: 'Chemex 8-Cup', amount: '₹48.00', status: 'Processing', time: '2 hrs ago' },
+  { id: 'ORD-005', customer: 'Bruce Wayne', product: 'Panama Geisha', amount: '₹120.00', status: 'Shipped', time: '3 hrs ago' },
 ];
 
 const CHART_COLORS = ['#D4AF37', '#b5952f', '#876c1c', '#54420e'];

@@ -372,7 +372,7 @@ const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize,
         <div className="flex flex-col">
           <span className="text-[8px] font-bold text-foreground/40 uppercase tracking-widest mb-1">Total Price</span>
           <div className="flex items-end gap-2">
-            <span className="text-3xl font-black text-foreground tracking-tighter leading-none">${(24.99 * quantity).toFixed(2)}</span>
+            <span className="text-3xl font-black text-foreground tracking-tighter leading-none">₹{(24.99 * quantity).toFixed(2)}</span>
           </div>
         </div>
         <div className="bg-green-500/10 px-2 py-1 rounded-full border border-green-500/20 text-[8px] font-bold text-green-400 uppercase tracking-widest">

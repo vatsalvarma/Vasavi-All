@@ -87,9 +87,9 @@ const FeaturedProducts = () => {
               </div>
 
               <div className="mt-auto flex items-center gap-3">
-                <span className="text-xl font-bold">${product.price}</span>
+                <span className="text-xl font-bold">₹{product.price}</span>
                 {product.oldPrice && (
-                  <span className="text-sm text-muted-foreground line-through">${product.oldPrice}</span>
+                  <span className="text-sm text-muted-foreground line-through">₹{product.oldPrice}</span>
                 )}
               </div>
             </div>

@@ -213,9 +213,9 @@ const ProfileHeader = () => (
 const ProfileAnalytics = () => (
   <div className="grid grid-cols-4 gap-2">
     {[
-      { label: "Saved", value: "$340.50", trend: "+12%", color: "text-green-400" },
+      { label: "Saved", value: "₹340.50", trend: "+12%", color: "text-green-400" },
       { label: "Reviews", value: "18", trend: "+3", color: "text-blue-400" },
-      { label: "Avg Ord", value: "$45.20", trend: "-2%", color: "text-red-400" },
+      { label: "Avg Ord", value: "₹45.20", trend: "-2%", color: "text-red-400" },
       { label: "Coupons", value: "4", trend: "Active", color: "text-accent" },
     ].map((stat, i) => (
       <GlassCard key={i} delay={0.2 + (i * 0.1)} className="p-2 flex flex-col justify-between h-14">
@@ -231,8 +231,8 @@ const ProfileAnalytics = () => (
 
 const MyOrders = () => {
   const orders = [
-    { id: "#ORD-9921", date: "Today", item: "Ethiopian Yirgacheffe", status: "Out for Delivery", img: "https://images.unsplash.com/photo-1524350876685-274059332603?w=100", total: "$24.99" },
-    { id: "#ORD-9844", date: "Oct 12", item: "Chemex Pour-Over Glass", status: "Delivered", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=100", total: "$45.00" },
+    { id: "#ORD-9921", date: "Today", item: "Ethiopian Yirgacheffe", status: "Out for Delivery", img: "https://images.unsplash.com/photo-1524350876685-274059332603?w=100", total: "₹24.99" },
+    { id: "#ORD-9844", date: "Oct 12", item: "Chemex Pour-Over Glass", status: "Delivered", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=100", total: "₹45.00" },
   ];
 
   return (
@@ -274,9 +274,9 @@ const MyOrders = () => {
 
 const Wishlist = () => {
   const items = [
-    { name: "Panama Geisha", price: "$85.00", img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=200" },
-    { name: "Fellow Stagg EKG", price: "$165.00", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200" },
-    { name: "Niche Zero", price: "$699.00", img: "https://images.unsplash.com/photo-1520286824908-166ce50fb8b4?w=200" },
+    { name: "Panama Geisha", price: "₹85.00", img: "https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=200" },
+    { name: "Fellow Stagg EKG", price: "₹165.00", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200" },
+    { name: "Niche Zero", price: "₹699.00", img: "https://images.unsplash.com/photo-1520286824908-166ce50fb8b4?w=200" },
   ];
 
   return (

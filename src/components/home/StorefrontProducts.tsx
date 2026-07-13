@@ -442,9 +442,9 @@ const PremiumProductCard = ({ product, idx }: { product: any, idx: number }) => 
           <div className="flex flex-col">
             <span className="text-[8px] text-foreground/40 uppercase tracking-widest font-bold mb-0.5">Your Price</span>
             <div className="flex items-baseline gap-2">
-              <span className="text-xl lg:text-2xl font-black text-foreground">${product.price}</span>
+              <span className="text-xl lg:text-2xl font-black text-foreground">₹{product.price}</span>
               {product.oldPrice && (
-                <span className="text-[10px] font-bold text-foreground/30 line-through">${product.oldPrice}</span>
+                <span className="text-[10px] font-bold text-foreground/30 line-through">₹{product.oldPrice}</span>
               )}
             </div>
           </div>
