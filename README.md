@@ -3,7 +3,8 @@
 
 
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
-![Uploading image.png…]()
+---
+<img width="1901" height="866" alt="image" src="https://github.com/user-attachments/assets/6c01b1a6-8ee6-4501-8091-b0a9c96f4906" />
 
 Currently, two official plugins are available:
 
