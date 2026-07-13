@@ -2,7 +2,7 @@
 <img width="1897" height="866" alt="Screenshot 2026-07-13 123111" src="https://github.com/user-attachments/assets/211a03ac-778d-4219-9392-4941d2f1da00" />
 
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules."https://vatsalvarma.github.io/Vasavi-E-com-test/#/admin"
 ---
 <img width="1901" height="866" alt="image" src="https://github.com/user-attachments/assets/6c01b1a6-8ee6-4501-8091-b0a9c96f4906" />
 
