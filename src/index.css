@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 32% 95%; /* #F7F3EC */
+    --background-secondary: 38 28% 90%; /* #EFE8DD */
+    --foreground: 0 0% 11%; /* #1B1B1B */
+    
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 11%;
+    
+    --popover: 38 32% 95%;
+    --popover-foreground: 0 0% 11%;
+    
+    --primary: 0 0% 11%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 38 28% 90%;
+    --secondary-foreground: 0 0% 11%;
+    
+    --muted: 38 28% 90%;
+    --muted-foreground: 0 0% 40%; /* #666666 */
+    
+    --accent: 26 40% 39%; /* #8B5E3C */
+    --accent-secondary: 30 45% 61%; /* #C89B6D */
+    --accent-foreground: 0 0% 100%;
+    
+    --success: 142 39% 39%; /* #3D8B5A */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 90%; /* ~rgba(0,0,0,.08) */
+    --input: 0 0% 90%;
+    --ring: 26 40% 39%;
+    
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --noise-opacity: 0.01;
+    
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 4%; /* #090909 */
+    --background-secondary: 0 0% 9%; /* #171717 */
+    --foreground: 0 0% 97%; /* #F8F8F8 */
+    
+    --card: 0 0% 9%; /* #171717 */
+    --card-foreground: 0 0% 97%;
+    
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 97%;
+    
+    --primary: 0 0% 97%;
+    --primary-foreground: 0 0% 4%;
+    
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 97%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%; /* #A6A6A6 */
+    
+    --accent: 46 65% 52%; /* #D4AF37 */
+    --accent-secondary: 46 80% 65%;
+    --accent-foreground: 0 0% 4%;
+    
+    --success: 142 39% 39%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 0 0% 15%; /* rgba(255,255,255,.08) */
+    --input: 0 0% 15%;
+    --ring: 46 65% 52%;
+    
+    --glass-bg: rgba(255, 255, 255, 0.04);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --noise-opacity: 0.03;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10;
+  }
+  .glass-card {
+    @apply bg-[#202020]/50 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)];
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60;
+  }
+  .text-gradient-accent {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#FFD54F] to-[#FFD54F]/70;
+  }
+}
