@@ -10,13 +10,19 @@ import { Button } from '@/components/ui/button';
 export default function ProductDetailsPage() {
   const { id } = useParams();
 
-  // Customization State
-  const [roast, setRoast] = useState(50);
-  const [grind, setGrind] = useState('Whole Bean');
-  const [sweetness, setSweetness] = useState(70);
-  const [acidity, setAcidity] = useState(60);
-  const [body, setBody] = useState(85);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
+  // Static Taste Profile
+  const roast = 50;
+  const sweetness = 70;
+  const acidity = 60;
+  const body = 85;
   
+  // Purchase Options
+  const [selectedRoast, setSelectedRoast] = useState('Medium Roast');
+  const [processType, setProcessType] = useState('Cherry/ Sundried Coffee');
   const [quantity, setQuantity] = useState(1);
   const [packageSize, setPackageSize] = useState('250g');
 
@@ -62,12 +68,12 @@ export default function ProductDetailsPage() {
               {/* Customizer */}
               <div className="flex flex-col gap-3 flex-1 justify-center">
                 <div>
-                  <h3 className="text-[10px] font-black uppercase tracking-widest text-accent mb-2">Taste Customizer</h3>
+                  <h3 className="text-[10px] font-black uppercase tracking-widest text-accent mb-2">Taste Profile</h3>
                 </div>
-                <CustomSlider label="Roast Level" value={roast} setValue={setRoast} />
-                <CustomSlider label="Sweetness" value={sweetness} setValue={setSweetness} />
-                <CustomSlider label="Acidity" value={acidity} setValue={setAcidity} />
-                <CustomSlider label="Body" value={body} setValue={setBody} />
+                <CustomSlider label="Roast Level" value={roast} />
+                <CustomSlider label="Sweetness" value={sweetness} />
+                <CustomSlider label="Acidity" value={acidity} />
+                <CustomSlider label="Body" value={body} />
               </div>
             </div>
 
@@ -82,9 +88,9 @@ export default function ProductDetailsPage() {
             <PurchaseDashboard 
               quantity={quantity} setQuantity={setQuantity}
               packageSize={packageSize} setPackageSize={setPackageSize}
-              grind={grind} setGrind={setGrind}
+              selectedRoast={selectedRoast} setSelectedRoast={setSelectedRoast}
+              processType={processType} setProcessType={setProcessType}
             />
-            <AIBarista />
           </div>
 
         </div>
@@ -100,36 +106,37 @@ export default function ProductDetailsPage() {
 const Gallery = () => {
   const [activeIdx, setActiveIdx] = useState(0);
   const images = [
-    'https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80&w=800',
-    'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=800'
+    'https://www.mokkafarms.com/cdn/shop/files/6.webp?v=1774596810',
+    'https://www.mokkafarms.com/cdn/shop/files/6.webp?v=1774596810',
+    'https://www.mokkafarms.com/cdn/shop/files/6.webp?v=1774596810'
   ];
+
+  const activeImg = images[activeIdx];
 
   return (
     <div className="flex flex-col gap-3">
       {/* Main Image */}
       <motion.div 
-        className="w-full aspect-[16/9] rounded-[24px] bg-background border border-foreground/5 overflow-hidden relative group shrink-0"
+        className="w-full aspect-square rounded-[24px] bg-[#F8F9FA] dark:bg-zinc-900 border border-foreground/5 overflow-hidden relative group shrink-0"
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        {/* Steam */}
+        {/* Steam / Background Texture */}
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay opacity-30 animate-pulse z-10 pointer-events-none" />
+        
+        {/* Full Cover Image */}
         <motion.img 
-          key={activeIdx}
-          src={images[activeIdx]} 
-          alt="Coffee"
+          key={activeIdx + '-img'}
+          src={activeImg} 
+          alt="Coffee" 
           initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ opacity: 0.8, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-700"
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="w-full h-full object-cover relative z-10 brightness-[1.1]" 
         />
         
         {/* Floating Badges */}
-        <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+        <div className="absolute top-4 left-4 z-40 flex flex-col gap-2">
           <div className="px-2 py-1 text-[8px] font-black uppercase tracking-widest rounded-full bg-gradient-to-r from-accent to-yellow-600 text-background border border-accent/50 shadow-xl">
             Gold Medal
           </div>
@@ -142,9 +149,9 @@ const Gallery = () => {
           <button 
             key={idx} 
             onClick={() => setActiveIdx(idx)}
-            className={`w-full aspect-square rounded-[8px] overflow-hidden border transition-all duration-300 ${activeIdx === idx ? 'border-accent opacity-100' : 'border-foreground/10 opacity-40 hover:opacity-100'}`}
+            className={`w-full aspect-square rounded-[8px] overflow-hidden border transition-all duration-300 relative bg-[#F8F9FA] dark:bg-zinc-900 ${activeIdx === idx ? 'border-accent shadow-lg scale-[1.02] opacity-100' : 'border-foreground/10 opacity-50 hover:opacity-100 hover:scale-[1.02]'}`}
           >
-            <img src={img} className="w-full h-full object-cover mix-blend-luminosity hover:mix-blend-normal" alt="Thumb" />
+            <img src={img} className="w-full h-full object-cover brightness-[1.1]" alt="Thumb" />
           </button>
         ))}
       </div>
@@ -202,44 +209,39 @@ const StatusBox = ({ icon: Icon, label, value, color }: any) => (
   </div>
 );
 
-const CustomSlider = ({ label, value, setValue, markers }: any) => (
+const CustomSlider = ({ label, value }: any) => (
   <div className="flex flex-col gap-2 relative group py-1">
     <div className="flex justify-between items-end mb-1">
       <span className="text-[9px] font-bold text-foreground/50 uppercase tracking-widest group-hover:text-foreground/80 transition-colors">{label}</span>
       <span className="text-[10px] font-black text-accent shadow-accent/20 drop-shadow-md">{value}%</span>
     </div>
     
-    <div className="relative h-2.5 w-full bg-background/60 rounded-full cursor-pointer shadow-[inset_0_1px_3px_rgba(0,0,0,1)] border border-foreground/5 overflow-visible">
+    <div className="relative h-2.5 w-full bg-background/60 rounded-full shadow-[inset_0_1px_3px_rgba(0,0,0,1)] border border-foreground/5 overflow-visible">
       {/* Glow behind fill */}
       <motion.div 
         className="absolute top-0 left-0 h-full bg-accent/40 blur-[4px] rounded-full pointer-events-none"
+        initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
       />
       
       {/* Solid fill */}
       <motion.div 
         className="absolute top-0 left-0 h-full bg-gradient-to-r from-accent/50 to-accent rounded-full pointer-events-none shadow-[0_0_8px_hsl(var(--accent),0.4)]"
+        initial={{ width: 0 }}
         animate={{ width: `${value}%` }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
       />
 
       {/* Premium Thumb Indicator */}
       <motion.div
-        className="absolute top-1/2 w-4 h-4 bg-card border-[1.5px] border-accent rounded-full shadow-[0_0_12px_hsl(var(--accent),0.6)] pointer-events-none flex items-center justify-center z-20 group-hover:scale-125 transition-transform duration-300"
+        className="absolute top-1/2 w-4 h-4 bg-card border-[1.5px] border-accent rounded-full shadow-[0_0_12px_hsl(var(--accent),0.6)] pointer-events-none flex items-center justify-center z-20"
+        initial={{ left: 0, y: "-50%", x: "-50%" }}
         animate={{ left: `${value}%`, y: "-50%", x: "-50%" }}
-        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+        transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
       >
         <div className="w-1 h-1 bg-accent rounded-full shadow-[0_0_5px_hsl(var(--foreground) / 0.8)]" />
       </motion.div>
-
-      <input 
-        type="range" 
-        min="0" max="100" 
-        value={value} 
-        onChange={(e) => setValue(parseInt(e.target.value))}
-        className="absolute -inset-y-2 inset-x-0 w-full h-[calc(100%+16px)] opacity-0 cursor-ew-resize z-30"
-      />
     </div>
   </div>
 );
@@ -363,7 +365,7 @@ const AIBarista = () => (
   </div>
 );
 
-const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize, grind, setGrind }: any) => {
+const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize, selectedRoast, setSelectedRoast, processType, setProcessType }: any) => {
   return (
     <div className="bg-background/80 backdrop-blur-3xl border border-foreground/10 rounded-[24px] p-4 shadow-[0_20px_60px_rgba(0,0,0,0.8)] flex flex-col gap-3 flex-1 min-h-0 overflow-hidden">
       
@@ -372,7 +374,7 @@ const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize,
         <div className="flex flex-col">
           <span className="text-[8px] font-bold text-foreground/40 uppercase tracking-widest mb-1">Total Price</span>
           <div className="flex items-end gap-2">
-            <span className="text-3xl font-black text-foreground tracking-tighter leading-none">₹{(24.99 * quantity).toFixed(2)}</span>
+            <span className="text-3xl font-black text-foreground tracking-tighter leading-none">₹{(1300.99 * quantity).toFixed(2)}</span>
           </div>
         </div>
         <div className="bg-green-500/10 px-2 py-1 rounded-full border border-green-500/20 text-[8px] font-bold text-green-400 uppercase tracking-widest">
@@ -381,6 +383,42 @@ const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize,
       </div>
 
       <div className="h-px w-full bg-foreground/5 shrink-0" />
+
+      {/* Process Option */}
+      <div className="flex flex-col gap-2 shrink-0">
+        <span className="text-[8px] font-bold text-foreground/60 uppercase tracking-widest">Process</span>
+        <div className="grid grid-cols-1 gap-1.5">
+          {['Cherry/ Sundried Coffee', 'Plantation/ Washed Coffee'].map(p => (
+            <button 
+              key={p}
+              onClick={() => setProcessType(p)}
+              className={`py-2 px-2 rounded-lg text-[9px] font-bold transition-all ${
+                processType === p ? 'bg-accent text-background shadow-[0_0_15px_hsl(var(--accent),0.3)]' : 'bg-foreground/5 border border-foreground/10 text-foreground/60 hover:text-foreground hover:bg-foreground/10'
+              }`}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Roast Option */}
+      <div className="flex flex-col gap-2 shrink-0">
+        <span className="text-[8px] font-bold text-foreground/60 uppercase tracking-widest">Roast Type</span>
+        <div className="grid grid-cols-2 gap-1.5">
+          {['Light Roast', 'Light-Medium Roast', 'Medium Roast', 'Medium-Dark Roast', 'Vienna Roast', 'Dark Roast'].map(r => (
+            <button 
+              key={r}
+              onClick={() => setSelectedRoast(r)}
+              className={`py-2 px-1 rounded-lg text-[9px] font-bold transition-all ${
+                selectedRoast === r ? 'bg-accent text-background shadow-[0_0_15px_hsl(var(--accent),0.3)]' : 'bg-foreground/5 border border-foreground/10 text-foreground/60 hover:text-foreground hover:bg-foreground/10'
+              }`}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Package Size */}
       <div className="flex flex-col gap-2 shrink-0">
@@ -395,24 +433,6 @@ const PurchaseDashboard = ({ quantity, setQuantity, packageSize, setPackageSize,
               }`}
             >
               {size}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Grind Option */}
-      <div className="flex flex-col gap-2 shrink-0">
-        <span className="text-[8px] font-bold text-foreground/60 uppercase tracking-widest">Grind Setting</span>
-        <div className="grid grid-cols-2 gap-1.5">
-          {['Whole Bean', 'Espresso', 'Pour Over', 'French Press'].map(g => (
-            <button 
-              key={g}
-              onClick={() => setGrind(g)}
-              className={`py-2 px-1 rounded-lg text-[9px] font-bold transition-all ${
-                grind === g ? 'bg-accent text-background shadow-[0_0_15px_hsl(var(--accent),0.3)]' : 'bg-foreground/5 border border-foreground/10 text-foreground/60 hover:text-foreground hover:bg-foreground/10'
-              }`}
-            >
-              {g}
             </button>
           ))}
         </div>

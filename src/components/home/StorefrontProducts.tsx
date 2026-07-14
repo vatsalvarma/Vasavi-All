@@ -287,7 +287,7 @@ const PremiumProductCard = ({ product, idx }: { product: any, idx: number }) => 
   return (
     <motion.div
       layout
-      onClick={() => navigate(`/product/${product.id}`)}
+      onClick={() => navigate(`/showcase`)}
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 40 }}

@@ -7,7 +7,7 @@ import {
   Lock, FileText, HelpCircle, LogOut, ChevronRight, 
   Download, RefreshCw, Play, Zap, Thermometer, Droplets, 
   ArrowUpRight, Activity, Clock, CheckCircle2, MoreHorizontal,
-  ChevronDown, Truck, Copy
+  ChevronDown, Truck, Copy, Plus
 } from 'lucide-react';
 
 const ACCENT = '#D4AF37';
@@ -27,9 +27,9 @@ const GlassCard = ({ children, className = "", delay = 0, noHover = false }: { c
 
 // --- LEFT SIDEBAR COMPONENTS ---
 
-const NavigationMenu = () => {
+const NavigationMenu = ({ activeTab, setActiveTab }: { activeTab: string, setActiveTab: (t: string) => void }) => {
   const menuItems = [
-    { icon: User, label: "Overview", active: true },
+    { icon: User, label: "Overview" },
     { icon: ShoppingBag, label: "My Orders" },
     { icon: Heart, label: "Wishlist", badge: "12" },
     { icon: CalendarDays, label: "Subscriptions" },
@@ -45,11 +45,16 @@ const NavigationMenu = () => {
       <div className="flex flex-col gap-0.5">
         {menuItems.map((item, idx) => {
           const Icon = item.icon;
+          const isActive = activeTab === item.label;
           return (
-            <button key={idx} className={`flex items-center justify-between px-2 py-1.5 rounded-lg transition-all duration-300 group ${item.active ? 'bg-gradient-to-r from-accent/20 to-transparent border border-accent/30' : 'hover:bg-foreground/5 border border-transparent'}`}>
+            <button 
+              key={idx} 
+              onClick={() => setActiveTab(item.label)}
+              className={`flex items-center justify-between px-2 py-1.5 rounded-lg transition-all duration-300 group ${isActive ? 'bg-gradient-to-r from-accent/20 to-transparent border border-accent/30' : 'hover:bg-foreground/5 border border-transparent'}`}
+            >
               <div className="flex items-center gap-2">
-                <Icon className={`w-3 h-3 ${item.active ? 'text-accent' : 'text-foreground/50 group-hover:text-foreground transition-colors'}`} />
-                <span className={`text-[10px] font-semibold ${item.active ? 'text-foreground' : 'text-foreground/70 group-hover:text-foreground transition-colors'}`}>{item.label}</span>
+                <Icon className={`w-3 h-3 ${isActive ? 'text-accent' : 'text-foreground/50 group-hover:text-foreground transition-colors'}`} />
+                <span className={`text-[10px] font-semibold ${isActive ? 'text-foreground' : 'text-foreground/70 group-hover:text-foreground transition-colors'}`}>{item.label}</span>
               </div>
               {item.badge && (
                 <span className="bg-accent/20 text-accent text-[8px] font-black px-1.5 py-0.5 rounded-full border border-accent/30">
@@ -146,49 +151,60 @@ const ReferralWidget = () => (
 
 // --- CENTER COMPONENTS ---
 
-const ProfileHeader = () => (
-  <GlassCard delay={0.1} className="relative overflow-hidden noHover" noHover>
+const ProfileHeader = ({ onAddAddress, onEditProfile }: { onAddAddress: () => void, onEditProfile: () => void }) => (
+  <GlassCard delay={0.1} className="relative overflow-hidden" noHover>
     {/* Cover Banner (Video/Image) */}
-    <div className="h-16 relative overflow-hidden">
+    <div className="h-24 relative overflow-hidden rounded-t-xl">
       <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=1200" alt="Cover" className="w-full h-full object-cover opacity-60 mix-blend-luminosity" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
-      <button className="absolute top-2 right-2 bg-background/40 backdrop-blur-md border border-foreground/10 px-1.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest text-foreground hover:bg-foreground/10 transition-colors">
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+      <button className="absolute top-3 right-3 bg-background/40 backdrop-blur-md border border-foreground/10 px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest text-foreground hover:bg-foreground/10 transition-colors shadow-lg">
         Edit Cover
       </button>
     </div>
 
-    {/* Profile Info */}
-    <div className="px-3 pb-2 relative">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-2 -mt-6 mb-2">
-        <div className="flex items-end gap-3">
-          <div className="relative group">
-            <div className="w-14 h-14 rounded-xl overflow-hidden border-2 border-[#090909] relative shadow-lg z-10 bg-background">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-            </div>
-            <div className="absolute -bottom-1 -right-1 bg-accent w-4 h-4 rounded-full border-2 border-[#090909] flex items-center justify-center z-20">
-              <ShieldCheck className="w-2.5 h-2.5 text-background" />
-            </div>
-          </div>
-          <div className="pb-0.5">
-            <h1 className="text-sm font-black text-foreground flex items-center gap-2 leading-tight">
-              Elena Rodriguez
-            </h1>
-            <div className="text-[9px] text-foreground/50 font-medium mt-0.5 flex items-center gap-1.5">
-              <span>elena.r@example.com</span>
-              <span className="w-0.5 h-0.5 rounded-full bg-foreground/20" />
-              <span>Joined 2024</span>
-            </div>
-          </div>
+    {/* Profile Info - Centered Layout */}
+    <div className="px-4 pb-5 relative flex flex-col items-center text-center">
+      
+      {/* Avatar coming out of banner */}
+      <div className="relative group -mt-12 mb-3">
+        <div className="w-24 h-24 rounded-full overflow-hidden border-[4px] border-background relative shadow-2xl z-10 bg-background">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400" alt="Avatar" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
         </div>
-        <div className="pb-0.5">
-          <button className="bg-accent hover:bg-[#b5952f] text-background px-2.5 py-1 rounded-md font-bold text-[9px] uppercase tracking-widest transition-colors shadow-[0_0_10px_rgba(212,175,55,0.2)]">
-            Edit Profile
-          </button>
+        <div className="absolute bottom-1 right-1 bg-accent w-6 h-6 rounded-full border-2 border-background flex items-center justify-center z-20 shadow-lg shadow-accent/20">
+          <ShieldCheck className="w-3.5 h-3.5 text-background" />
+        </div>
+      </div>
+      
+      {/* User Details */}
+      <h1 className="text-xl font-black text-foreground mb-1">
+        Elena Rodriguez
+      </h1>
+      
+      <div className="flex flex-col gap-1 text-[10px] text-foreground/60 font-medium mb-5 items-center w-full max-w-sm">
+        <div className="flex items-center justify-center gap-2 flex-wrap">
+          <span className="bg-accent/10 border border-accent/20 text-accent px-1.5 py-0.5 rounded font-mono font-bold shadow-[0_0_10px_rgba(212,175,55,0.1)]">ID: USER-9942</span>
+          <span className="w-1 h-1 rounded-full bg-foreground/20" />
+          <span className="flex items-center gap-1"><span className="text-foreground/40">Email:</span> elena.r@example.com</span>
+        </div>
+        <div className="flex items-center justify-center gap-2 flex-wrap mt-1">
+          <span className="flex items-center gap-1"><span className="text-foreground/40">Phone:</span> +1 (555) 123-4567</span>
+          <span className="w-1 h-1 rounded-full bg-foreground/20" />
+          <span className="flex items-center gap-1"><span className="text-foreground/40">Address:</span> 123 Coffee St, Seattle, WA</span>
         </div>
       </div>
 
+      {/* Action Buttons */}
+      <div className="flex items-center justify-center gap-3 mb-6 w-full">
+        <button onClick={onAddAddress} className="bg-accent hover:bg-[#b5952f] text-background px-5 py-2 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)] hover:-translate-y-0.5 flex items-center gap-1.5">
+          <Plus className="w-3.5 h-3.5" /> Add New Address
+        </button>
+        <button onClick={onEditProfile} className="bg-foreground/5 hover:bg-foreground/10 text-foreground px-5 py-2 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all border border-foreground/10 hover:border-foreground/20 flex items-center gap-1.5">
+          <Settings className="w-3.5 h-3.5" /> Edit Profile
+        </button>
+      </div>
+
       {/* Stats Row */}
-      <div className="grid grid-cols-4 gap-2 mt-2 pt-2 border-t border-foreground/5">
+      <div className="grid grid-cols-4 gap-2 w-full pt-4 border-t border-foreground/10">
         {[
           { label: "Orders", value: "42", icon: ShoppingBag },
           { label: "Points", value: "12.4k", icon: Award },
@@ -197,11 +213,10 @@ const ProfileHeader = () => (
         ].map((stat, i) => {
           const Icon = stat.icon;
           return (
-            <div key={i} className="flex flex-col gap-0">
-              <div className="flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-foreground/40">
-                <Icon className="w-2 h-2" /> {stat.label}
-              </div>
-              <div className="text-xs font-black text-foreground">{stat.value}</div>
+            <div key={i} className="flex flex-col items-center justify-center gap-1 bg-foreground/[0.02] rounded-lg p-2 border border-foreground/5 hover:bg-foreground/[0.04] transition-colors cursor-pointer group">
+              <Icon className="w-3.5 h-3.5 text-accent group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-black text-foreground leading-none mt-1">{stat.value}</span>
+              <span className="text-[8px] font-bold text-foreground/40 uppercase tracking-widest">{stat.label}</span>
             </div>
           );
         })}
@@ -478,6 +493,10 @@ const AiCoffeeAssistant = () => (
 // MAIN PAGE EXPORT
 
 export default function AccountDashboard() {
+  const [activeTab, setActiveTab] = useState("Overview");
+  const [showAddressModal, setShowAddressModal] = useState(false);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+
   return (
     <div className="h-[calc(100vh-90px)] w-full overflow-hidden bg-background text-foreground selection:bg-accent selection:text-background font-sans relative flex flex-col">
       {/* Global Noise Texture */}
@@ -519,26 +538,31 @@ export default function AccountDashboard() {
           
           {/* LEFT SIDEBAR (2 cols) */}
           <div className="col-span-2 flex flex-col gap-3 h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            <NavigationMenu />
+            <NavigationMenu activeTab={activeTab} setActiveTab={setActiveTab} />
             <ReferralWidget />
             <SettingsCard />
           </div>
 
           {/* MIDDLE COLUMN (7 cols) - Contains most stuff */}
           <div className="col-span-7 flex flex-col gap-3">
-            <ProfileHeader />
-            <ProfileAnalytics />
+            {activeTab === "Overview" && (
+              <>
+                <ProfileHeader 
+                  onAddAddress={() => setShowAddressModal(true)} 
+                  onEditProfile={() => setShowProfileModal(true)} 
+                />
+                <ProfileAnalytics />
+              </>
+            )}
             
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-3">
-                <MyOrders />
-                <MySubscriptions />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Wishlist />
-                <CoffeePersonality />
-              </div>
-            </div>
+            {activeTab === "My Orders" && (
+              <MyOrders />
+            )}
+
+            {activeTab === "Wishlist" && (
+              <Wishlist />
+            )}
+            
           </div>
 
           {/* RIGHT SIDEBAR (3 cols) */}
@@ -551,6 +575,77 @@ export default function AccountDashboard() {
 
         </div>
       </div>
+
+      {/* MODALS */}
+      <AnimatePresence>
+        {showAddressModal && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
+              className="bg-card w-full max-w-md rounded-2xl border border-foreground/10 p-6 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[50px] -translate-y-1/2 translate-x-1/2 rounded-full pointer-events-none" />
+              <h2 className="text-xl font-black mb-4">Add New Address</h2>
+              <div className="space-y-3 relative z-10">
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">Street Address</label>
+                  <input type="text" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" placeholder="123 Coffee St" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">City</label>
+                    <input type="text" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" placeholder="Seattle" />
+                  </div>
+                  <div>
+                    <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">Zip Code</label>
+                    <input type="text" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" placeholder="98101" />
+                  </div>
+                </div>
+                <div className="flex justify-end gap-2 mt-6">
+                  <button onClick={() => setShowAddressModal(false)} className="px-5 py-2 rounded-lg text-xs font-bold bg-foreground/5 hover:bg-foreground/10 transition-colors">Cancel</button>
+                  <button onClick={() => setShowAddressModal(false)} className="px-5 py-2 rounded-lg text-xs font-bold bg-accent text-background hover:bg-[#b5952f] shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-colors">Save Address</button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+
+        {showProfileModal && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9, y: 20 }}
+              className="bg-card w-full max-w-md rounded-2xl border border-foreground/10 p-6 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-[50px] -translate-y-1/2 translate-x-1/2 rounded-full pointer-events-none" />
+              <h2 className="text-xl font-black mb-4">Edit Profile</h2>
+              <div className="space-y-3 relative z-10">
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">Full Name</label>
+                  <input type="text" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" defaultValue="Elena Rodriguez" />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">Email</label>
+                  <input type="email" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" defaultValue="elena.r@example.com" />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-foreground/50 mb-1 block">Phone Number</label>
+                  <input type="text" className="w-full bg-background border border-foreground/10 rounded-lg p-2.5 text-sm focus:outline-none focus:border-accent transition-colors" defaultValue="+1 (555) 123-4567" />
+                </div>
+                <div className="flex justify-end gap-2 mt-6">
+                  <button onClick={() => setShowProfileModal(false)} className="px-5 py-2 rounded-lg text-xs font-bold bg-foreground/5 hover:bg-foreground/10 transition-colors">Cancel</button>
+                  <button onClick={() => setShowProfileModal(false)} className="px-5 py-2 rounded-lg text-xs font-bold bg-accent text-background hover:bg-[#b5952f] shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-colors">Save Changes</button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

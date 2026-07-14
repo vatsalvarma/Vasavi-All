@@ -6,6 +6,7 @@ import ProductDetailsPage from '@/pages/ProductDetailsPage'
 import TrackOrderPage from '@/pages/TrackOrderPage'
 import AccountDashboard from '@/pages/AccountDashboard'
 import AdminDashboard from '@/pages/AdminDashboard'
+import CollectionShowcasePage from '@/pages/CollectionShowcasePage'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { useEffect } from 'react'
@@ -44,6 +45,7 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="shop/:category" element={<ShopPage />} />
+            <Route path="showcase/:id?" element={<CollectionShowcasePage />} />
             <Route path="product/:id" element={<ProductDetailsPage />} />
             <Route path="track-order" element={<TrackOrderPage />} />
             <Route path="account" element={<AccountDashboard />} />

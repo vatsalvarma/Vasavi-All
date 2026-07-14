@@ -30,10 +30,10 @@ const TopUtilityBar = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-2xl border-b border-accent/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col transition-colors duration-500">
+      <header className="fixed top-0 left-0 right-0 z-[60] bg-background/95 backdrop-blur-2xl border-b border-accent/20 shadow-[0_4px_30px_rgba(0,0,0,0.5)] flex flex-col">
       
       {/* ================= TOP ROW (Announcements & Locale) ================= */}
-      <div className="h-[35px] border-b border-foreground/5 px-4 md:px-6 lg:px-8 flex items-center justify-between text-foreground/80 text-[10px] font-medium transition-colors duration-500">
+      <div className="h-[35px] border-b border-foreground/5 px-4 md:px-6 lg:px-8 flex items-center justify-between text-foreground/80 text-[10px] font-medium">
         
         {/* LEFT: Animated Announcement */}
         <div className="flex-1 flex justify-start overflow-hidden h-full items-center relative">
@@ -280,12 +280,12 @@ const IconButton = ({ icon: Icon, tooltip, onClick }: { icon: any, tooltip: stri
 );
 
 const CartDrawer = ({ onClose }: { onClose: () => void }) => {
-  const cartItems = [
+  const [items, setItems] = React.useState([
     {
       id: 1,
       name: "Ethiopian Yirgacheffe",
       variant: "Whole Bean • 250g",
-      price: "₹24.99",
+      price: 24.99,
       img: "https://images.unsplash.com/photo-1524350876685-274059332603?w=200",
       quantity: 1
     },
@@ -293,7 +293,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
       id: 2,
       name: "Chemex Pour-Over Glass",
       variant: "6-Cup Classic",
-      price: "₹45.00",
+      price: 45.00,
       img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200",
       quantity: 1
     },
@@ -301,11 +301,29 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
       id: 3,
       name: "Fellow Stagg EKG",
       variant: "Matte Black",
-      price: "₹165.00",
+      price: 165.00,
       img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=200",
       quantity: 1
     }
-  ];
+  ]);
+
+  const handleRemove = (id: number) => {
+    setItems(items.filter(item => item.id !== id));
+  };
+
+  const handleUpdateQuantity = (id: number, delta: number) => {
+    setItems(items.map(item => {
+      if (item.id === id) {
+        const newQ = Math.max(1, item.quantity + delta);
+        return { ...item, quantity: newQ };
+      }
+      return item;
+    }));
+  };
+
+  const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const discount = items.length > 0 ? 24.99 : 0;
+  const total = Math.max(0, subtotal - discount);
 
   return (
     <>
@@ -330,7 +348,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
         <div className="flex items-center justify-between p-5 border-b border-white/5 bg-white/[0.02]">
           <div className="flex items-center gap-3">
             <ShoppingCart className="w-5 h-5 text-[#D4AF37]" />
-            <h2 className="text-sm font-black text-white uppercase tracking-widest">Your Cart <span className="text-white/40 font-bold">(3)</span></h2>
+            <h2 className="text-sm font-black text-white uppercase tracking-widest">Your Cart <span className="text-white/40 font-bold">({items.length})</span></h2>
           </div>
           <button onClick={onClose} className="w-8 h-8 rounded-full border border-white/10 hover:border-white/30 flex items-center justify-center bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all">
             <X className="w-4 h-4" />
@@ -339,7 +357,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
 
         {/* Items List */}
         <div className="flex-1 overflow-y-auto p-5 space-y-3 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {cartItems.map((item) => (
+          {items.map((item) => (
             <div key={item.id} className="flex gap-4 p-3 bg-white/[0.02] border border-white/5 rounded-xl group hover:border-[#D4AF37]/30 hover:bg-white/[0.04] transition-all">
               <div className="w-20 h-20 rounded-lg overflow-hidden bg-black shrink-0 relative border border-white/5">
                 <img src={item.img} alt={item.name} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
@@ -350,21 +368,26 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
                     <h3 className="text-[11px] font-bold text-white mb-0.5">{item.name}</h3>
                     <p className="text-[9px] font-bold text-white/40 uppercase tracking-wider">{item.variant}</p>
                   </div>
-                  <button className="text-white/20 hover:text-red-400 transition-colors p-1">
+                  <button onClick={() => handleRemove(item.id)} className="text-white/20 hover:text-red-400 transition-colors p-1">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
                 <div className="flex items-center justify-between mt-3">
-                  <span className="text-xs font-black text-[#D4AF37]">{item.price}</span>
+                  <span className="text-xs font-black text-[#D4AF37]">₹{item.price.toFixed(2)}</span>
                   <div className="flex items-center gap-3 bg-black/50 rounded-lg px-2 py-1 border border-white/10">
-                    <button className="text-white/50 hover:text-white transition-colors"><Minus className="w-3 h-3" /></button>
+                    <button onClick={() => handleUpdateQuantity(item.id, -1)} className="text-white/50 hover:text-white transition-colors"><Minus className="w-3 h-3" /></button>
                     <span className="text-[10px] font-bold w-3 text-center text-white">{item.quantity}</span>
-                    <button className="text-white/50 hover:text-white transition-colors"><Plus className="w-3 h-3" /></button>
+                    <button onClick={() => handleUpdateQuantity(item.id, 1)} className="text-white/50 hover:text-white transition-colors"><Plus className="w-3 h-3" /></button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
+          {items.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-40 text-white/50 text-xs font-bold uppercase tracking-widest">
+              Your cart is empty
+            </div>
+          )}
         </div>
 
         {/* Footer / Summary */}
@@ -383,11 +406,11 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
           <div className="space-y-2 mb-4 bg-white/[0.02] p-3 rounded-lg border border-white/5">
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-white/50">
               <span>Subtotal</span>
-              <span className="text-white/80">₹234.99</span>
+              <span className="text-white/80">₹{subtotal.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-red-400">
               <span>Discount</span>
-              <span>-₹24.99</span>
+              <span>-₹{discount.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-[10px] font-bold uppercase tracking-widest text-white/50">
               <span>Shipping</span>
@@ -396,7 +419,7 @@ const CartDrawer = ({ onClose }: { onClose: () => void }) => {
             <div className="h-px w-full bg-white/10 my-2" />
             <div className="flex justify-between items-end">
               <span className="text-[10px] font-bold uppercase tracking-widest text-white/60">Total</span>
-              <span className="text-lg font-black text-[#D4AF37]">₹210.00</span>
+              <span className="text-lg font-black text-[#D4AF37]">₹{total.toFixed(2)}</span>
             </div>
           </div>
           

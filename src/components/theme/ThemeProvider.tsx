@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 type Theme = 'dark' | 'light';
 
@@ -54,16 +55,26 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     );
 
     const transition = document.startViewTransition(() => {
-      setTheme(newTheme);
+      flushSync(() => {
+        const root = document.documentElement;
+        if (newTheme === 'dark') {
+          root.classList.add('dark');
+        } else {
+          root.classList.remove('dark');
+        }
+        setTheme(newTheme);
+      });
     });
 
     transition.ready.then(() => {
+      const clipPath = [
+        `circle(0px at ${x}px ${y}px)`,
+        `circle(${endRadius}px at ${x}px ${y}px)`
+      ];
+
       document.documentElement.animate(
         {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`
-          ]
+          clipPath: clipPath
         },
         {
           duration: 800,
