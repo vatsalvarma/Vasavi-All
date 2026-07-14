@@ -11,7 +11,7 @@ const packs = [
     title: 'Barnsley Brew Coffee',
     description: 'Coffee is a brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species. When coffee berries turn from green to bright red in color – indicating ripeness – they are picked, processed, and dried.',
     price: '69.99',
-    image: '/images/coffee-packet.png',
+    image: './images/coffee-packet.png',
     color: 'from-zinc-900 to-black',
     textColor: 'text-zinc-900'
   },
@@ -23,7 +23,7 @@ const packs = [
     title: 'Havana Chill Blend',
     description: 'A refreshing iced coffee blend made from 100% Arabica beans, cold-brewed for 24 hours to extract the smoothest flavor profile possible without any bitterness.',
     price: '49.99',
-    image: '/images/coffee-packet.png',
+    image: './images/coffee-packet.png',
     color: 'from-[#C4A484] to-[#8B5A2B]',
     textColor: 'text-[#8B5A2B]'
   },
@@ -35,7 +35,7 @@ const packs = [
     title: 'Milano Caramel Roast',
     description: 'Infused with natural caramel extracts during the roasting process, this coffee delivers a rich, dessert-like experience in every cup.',
     price: '55.00',
-    image: '/images/coffee-packet.png',
+    image: './images/coffee-packet.png',
     color: 'from-[#A9B0B9] to-[#717983]',
     textColor: 'text-[#717983]'
   },
@@ -47,7 +47,7 @@ const packs = [
     title: 'Vienna Dark Mocha',
     description: 'A dark roasted blend of premium beans combined with artisanal cocoa notes. Perfectly balanced for a rich, satisfying morning cup.',
     price: '65.99',
-    image: '/images/coffee-packet.png',
+    image: './images/coffee-packet.png',
     color: 'from-[#5D4037] to-[#3E2723]',
     textColor: 'text-[#3E2723]'
   },
@@ -59,7 +59,7 @@ const packs = [
     title: 'Napoli High Voltage',
     description: 'Intense, bold, and unapologetically strong. This double espresso blend is designed to kickstart your day with maximum flavor and energy.',
     price: '72.50',
-    image: '/images/coffee-packet.png',
+    image: './images/coffee-packet.png',
     color: 'from-[#2F4F4F] to-[#1A3636]',
     textColor: 'text-[#1A3636]'
   }
