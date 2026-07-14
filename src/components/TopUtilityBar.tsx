@@ -89,7 +89,7 @@ const TopUtilityBar = () => {
         <div className="flex-1 flex items-center justify-start gap-6">
           <nav className="hidden md:flex items-center space-x-6">
             {[
-              { label: 'Shop', path: '/shop' },
+              { label: 'Shop', path: '/' },
               { label: 'Cafe', path: '/cafe' },
               { label: 'Accessories', path: '#' },
               { label: 'Journal', path: '#' }
@@ -123,7 +123,7 @@ const TopUtilityBar = () => {
           
           {isCafePage ? (
             <button 
-              onClick={() => setIsListCafeOpen(true)}
+              onClick={() => navigate('/sell-cafe')}
               className="ml-2 bg-accent hover:bg-[#b5952f] text-background px-4 py-1.5 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:-translate-y-0.5 flex items-center gap-1.5 whitespace-nowrap"
             >
               <Plus className="w-3.5 h-3.5" /> List Your Cafe
