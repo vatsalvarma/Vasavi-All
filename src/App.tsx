@@ -7,6 +7,7 @@ import TrackOrderPage from '@/pages/TrackOrderPage'
 import AccountDashboard from '@/pages/AccountDashboard'
 import AdminDashboard from '@/pages/AdminDashboard'
 import CollectionShowcasePage from '@/pages/CollectionShowcasePage'
+import CafeListingPage from '@/pages/CafeListingPage'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { useEffect } from 'react'
@@ -49,6 +50,7 @@ function App() {
             <Route path="product/:id" element={<ProductDetailsPage />} />
             <Route path="track-order" element={<TrackOrderPage />} />
             <Route path="account" element={<AccountDashboard />} />
+            <Route path="cafe" element={<CafeListingPage />} />
             {/* Add more routes here like Cart, Checkout, Profile */}
           </Route>
         </Routes>

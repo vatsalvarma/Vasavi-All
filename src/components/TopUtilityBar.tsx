@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Search, Package, Heart, HeadphonesIcon, Map, Scale, Sun, Moon, Bell, User, ShoppingCart, Users, Coffee, Flame, CheckCircle2, Star, X, Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import SmartSearch from '@/components/search/SmartSearch';
 import ThemeToggle from '@/components/theme/ThemeToggle';
+import ListCafeModal from '@/components/cafe/ListCafeModal';
 
 const ANNOUNCEMENTS = [
   "✨ PREMIUM COFFEE ECOMMERCE EXPERIENCE ✨",
@@ -17,9 +18,12 @@ const ANNOUNCEMENTS = [
 
 const TopUtilityBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const isCafePage = location.pathname.startsWith('/cafe');
   const [announcementIndex, setAnnouncementIndex] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isListCafeOpen, setIsListCafeOpen] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -84,15 +88,20 @@ const TopUtilityBar = () => {
         {/* LEFT: Navigation Links */}
         <div className="flex-1 flex items-center justify-start gap-6">
           <nav className="hidden md:flex items-center space-x-6">
-            {['Shop', 'Machines', 'Accessories', 'Journal'].map((item) => (
-              <a
-                key={item}
-                href="#"
-                className="text-[11px] font-bold uppercase tracking-[0.15em] text-white/70 hover:text-accent transition-colors relative group"
+            {[
+              { label: 'Shop', path: '/shop' },
+              { label: 'Cafe', path: '/cafe' },
+              { label: 'Accessories', path: '#' },
+              { label: 'Journal', path: '#' }
+            ].map((item) => (
+              <button
+                key={item.label}
+                onClick={() => item.path !== '#' && navigate(item.path)}
+                className="text-[11px] font-bold uppercase tracking-[0.15em] text-foreground/70 hover:text-accent transition-colors relative group"
               >
-                {item}
+                {item.label}
                 <span className="absolute -bottom-1.5 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              </button>
             ))}
           </nav>
         </div>
@@ -101,7 +110,7 @@ const TopUtilityBar = () => {
         <div className="flex-1 flex justify-center items-center">
           <a href="/" className="text-xl lg:text-2xl font-black tracking-[0.2em] uppercase flex items-center gap-2 relative group text-foreground">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-foreground/90 to-foreground/60 group-hover:from-accent group-hover:to-foreground transition-all duration-500">
-              E-Commerce
+              {isCafePage ? 'CAFE PLATFORM' : 'E-COMMERCE'}
             </span>
             <span className="h-1.5 w-1.5 rounded-full bg-accent mt-0.5 group-hover:scale-150 transition-transform duration-300 shadow-[0_0_10px_rgba(255,213,79,0.5)]"></span>
           </a>
@@ -111,8 +120,20 @@ const TopUtilityBar = () => {
         <div className="flex-1 flex items-center justify-end space-x-1">
           <ThemeToggle />
           <IconButton icon={Search} tooltip="Search" onClick={() => setIsSearchOpen(true)} />
-          <IconButton icon={Package} tooltip="Track Order" onClick={() => navigate('/track-order')} />
-          <IconButton icon={Heart} tooltip="Wishlist" />
+          
+          {isCafePage ? (
+            <button 
+              onClick={() => setIsListCafeOpen(true)}
+              className="ml-2 bg-accent hover:bg-[#b5952f] text-background px-4 py-1.5 rounded-lg font-black text-[10px] uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:-translate-y-0.5 flex items-center gap-1.5 whitespace-nowrap"
+            >
+              <Plus className="w-3.5 h-3.5" /> List Your Cafe
+            </button>
+          ) : (
+            <>
+              <IconButton icon={Package} tooltip="Track Order" onClick={() => navigate('/track-order')} />
+              <IconButton icon={Heart} tooltip="Wishlist" />
+            </>
+          )}
           <div className="relative group/support">
             <IconButton icon={HeadphonesIcon} tooltip="" />
             
@@ -217,12 +238,14 @@ const TopUtilityBar = () => {
           
           <IconButton icon={User} tooltip="Account" onClick={() => navigate('/account')} />
           
-          <div className="relative group">
-            <IconButton icon={ShoppingCart} tooltip="Cart" onClick={() => setIsCartOpen(true)} />
-            <span className="absolute top-0 right-0 h-3.5 w-3.5 rounded-full bg-accent text-black text-[8px] font-bold flex items-center justify-center shadow-[0_0_12px_rgba(255,213,79,0.8)] pointer-events-none group-hover:scale-110 group-hover:bg-white transition-all">
-              2
-            </span>
-          </div>
+          {!isCafePage && (
+            <div className="relative group">
+              <IconButton icon={ShoppingCart} tooltip="Cart" onClick={() => setIsCartOpen(true)} />
+              <span className="absolute top-0 right-0 h-3.5 w-3.5 rounded-full bg-accent text-black text-[8px] font-bold flex items-center justify-center shadow-[0_0_12px_rgba(255,213,79,0.8)] pointer-events-none group-hover:scale-110 group-hover:bg-white transition-all">
+                2
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </header>
@@ -258,6 +281,8 @@ const TopUtilityBar = () => {
         </motion.div>
       )}
     </AnimatePresence>
+    
+    <ListCafeModal isOpen={isListCafeOpen} onClose={() => setIsListCafeOpen(false)} />
     </>
   );
 };
