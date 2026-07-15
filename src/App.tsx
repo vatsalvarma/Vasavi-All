@@ -10,6 +10,9 @@ import CollectionShowcasePage from '@/pages/CollectionShowcasePage'
 import CafeListingPage from '@/pages/CafeListingPage'
 import CafeListingDetailsPage from '@/pages/CafeListingDetailsPage'
 import SellCafeWizardPage from '@/pages/SellCafeWizardPage'
+import BuildBlendPage from '@/pages/BuildBlendPage'
+import MachineryPage from '@/pages/MachineryPage'
+import MachineryDetailsPage from '@/pages/MachineryDetailsPage'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { useEffect } from 'react'
@@ -55,6 +58,9 @@ function App() {
             <Route path="cafe" element={<CafeListingPage />} />
             <Route path="sell-cafe" element={<SellCafeWizardPage />} />
             <Route path="cafe/:id" element={<CafeListingDetailsPage />} />
+            <Route path="blend" element={<BuildBlendPage />} />
+            <Route path="machinery" element={<MachineryPage />} />
+            <Route path="machinery/:id" element={<MachineryDetailsPage />} />
             {/* Add more routes here like Cart, Checkout, Profile */}
           </Route>
         </Routes>

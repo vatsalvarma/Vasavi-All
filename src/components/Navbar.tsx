@@ -36,13 +36,18 @@ const Navbar = () => {
                 </Button>
               </div>
               <nav className="hidden md:flex items-center space-x-6">
-                {['Shop', 'Machines', 'Accessories', 'Journal'].map((item) => (
+                {[
+                  { name: 'Cafe', path: '/cafe' },
+                  { name: 'Blender', path: '/blend' },
+                  { name: 'Machinery', path: '/machinery' },
+                  { name: 'Journal', path: '#' }
+                ].map((item) => (
                   <Link
-                    key={item}
-                    to="#"
+                    key={item.name}
+                    to={item.path}
                     className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-accent transition-colors relative group"
                   >
-                    {item}
+                    {item.name}
                     <span className="absolute -bottom-1.5 left-0 w-0 h-[2px] bg-accent transition-all duration-300 group-hover:w-full"></span>
                   </Link>
                 ))}
@@ -96,14 +101,19 @@ const Navbar = () => {
               className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-3xl border-t border-border/50 overflow-hidden"
             >
               <div className="p-6 flex flex-col space-y-6">
-                {['Collections', 'Men', 'Women', 'Accessories', 'Journal'].map((item) => (
+                {[
+                  { name: 'Cafe', path: '/cafe' },
+                  { name: 'Blender', path: '/blend' },
+                  { name: 'Machinery', path: '/machinery' },
+                  { name: 'Journal', path: '#' }
+                ].map((item) => (
                   <Link
-                    key={item}
-                    to="#"
+                    key={item.name}
+                    to={item.path}
                     className="text-2xl font-medium tracking-tight hover:text-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    {item}
+                    {item.name}
                   </Link>
                 ))}
                 <div className="pt-6 border-t border-border flex gap-4">

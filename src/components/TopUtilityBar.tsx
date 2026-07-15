@@ -91,7 +91,8 @@ const TopUtilityBar = () => {
             {[
               { label: 'Shop', path: '/' },
               { label: 'Cafe', path: '/cafe' },
-              { label: 'Accessories', path: '#' },
+              { label: 'Blender', path: '/blend' },
+              { label: 'Machinery', path: '/machinery' },
               { label: 'Journal', path: '#' }
             ].map((item) => (
               <button

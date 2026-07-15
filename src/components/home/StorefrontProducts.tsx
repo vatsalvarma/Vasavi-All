@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Heart, Eye, Star, Share2, Sparkles, MapPin, Coffee, ArrowRight, CheckCircle2, ShieldCheck, Truck, RefreshCw, Activity, Layers, Droplets } from 'lucide-react';
+import { ShoppingCart, Heart, Eye, Star, Share2, Sparkles, MapPin, Coffee, ArrowRight, CheckCircle2, ShieldCheck, Truck, RefreshCw, Activity, Layers, Droplets, ChevronDown, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
@@ -267,15 +267,132 @@ interface StorefrontProductsProps {
 }
 
 export default function StorefrontProducts({ category }: StorefrontProductsProps) {
-  const products = category === 'coffee' ? coffeeProducts : machineProducts;
+  const allProducts = category === 'coffee' ? coffeeProducts : machineProducts;
+  
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]); // Roast for coffee, Brands for machines
+
+  // Reset filters when category changes
+  useEffect(() => {
+    setSelectedTypes([]);
+    setSelectedTags([]);
+  }, [category]);
+
+  // Extract unique categories (types)
+  const types = Array.from(new Set(allProducts.map(p => p.type)));
+  
+  // Extract tags
+  const tags = category === 'coffee' 
+    ? Array.from(new Set(coffeeProducts.map(p => p.roast)))
+    : Array.from(new Set(machineProducts.map(p => p.name.split(' ')[0])));
+
+  const toggleType = (type: string) => {
+    setSelectedTypes(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
+  };
+
+  const toggleTag = (tag: string) => {
+    setSelectedTags(prev => prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]);
+  };
+
+  const filteredProducts = allProducts.filter(p => {
+    if (selectedTypes.length > 0 && !selectedTypes.includes(p.type)) return false;
+    if (selectedTags.length > 0) {
+      if (category === 'coffee') {
+        if (!selectedTags.includes(p.roast)) return false;
+      } else {
+        const brand = p.name.split(' ')[0];
+        if (!selectedTags.includes(brand)) return false;
+      }
+    }
+    return true;
+  });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <AnimatePresence mode="popLayout">
-        {products.map((product, idx) => (
-          <PremiumProductCard key={product.id} product={product} idx={idx} />
-        ))}
-      </AnimatePresence>
+    <div className="flex flex-col md:flex-row gap-8">
+      
+      {/* Left Side Filters */}
+      <div className="w-full md:w-64 shrink-0">
+        <h2 className="text-xl font-bold text-accent mb-6">Filter by category</h2>
+        
+        <div className="space-y-6">
+          <div>
+            <button 
+              onClick={() => setSelectedTypes([])}
+              className={`text-sm font-medium mb-4 transition-colors ${selectedTypes.length === 0 ? 'text-accent' : 'text-foreground hover:text-accent'}`}
+            >
+              All categories
+            </button>
+            <div className="space-y-3 pl-4 border-l border-border/50">
+              {types.map(t => (
+                <button
+                  key={t}
+                  onClick={() => toggleType(t)}
+                  className={`block text-sm text-left transition-colors ${selectedTypes.includes(t) ? 'text-accent font-bold' : 'text-muted-foreground hover:text-foreground'}`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div>
+            <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-widest">{category === 'coffee' ? 'Roast Level' : 'Brands'}</h3>
+            <div className="space-y-3 pl-4 border-l border-border/50">
+              {tags.map(tag => (
+                <label key={tag} className="flex items-center gap-3 cursor-pointer group">
+                  <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
+                    selectedTags.includes(tag) ? 'bg-accent border-accent text-primary-foreground' : 'border-muted-foreground group-hover:border-accent'
+                  }`}>
+                    {selectedTags.includes(tag) && <Check className="w-3 h-3" />}
+                  </div>
+                  <span className={`text-sm transition-colors ${
+                    selectedTags.includes(tag) ? 'text-foreground font-medium' : 'text-muted-foreground group-hover:text-foreground'
+                  }`}>
+                    {tag}
+                  </span>
+                  <input 
+                    type="checkbox" 
+                    className="hidden" 
+                    checked={selectedTags.includes(tag)}
+                    onChange={() => toggleTag(tag)}
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Right Side Products Grid */}
+      <div className="flex-1">
+        <div className="flex justify-between items-center mb-8 border-b border-border pb-4">
+          <p className="text-sm text-muted-foreground">Showing 1–{filteredProducts.length} of {filteredProducts.length} results</p>
+          <button className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors">
+            Default sorting <ChevronDown className="w-4 h-4" />
+          </button>
+        </div>
+        
+        {filteredProducts.length === 0 ? (
+          <div className="py-20 text-center">
+            <p className="text-muted-foreground">No products found matching your filters.</p>
+            <button 
+              onClick={() => { setSelectedTypes([]); setSelectedTags([]); }}
+              className="mt-4 text-accent hover:underline text-sm font-medium"
+            >
+              Clear all filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <AnimatePresence mode="popLayout">
+              {filteredProducts.map((product, idx) => (
+                <PremiumProductCard key={product.id} product={product} idx={idx} />
+              ))}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+
     </div>
   );
 }
@@ -330,12 +447,14 @@ const PremiumProductCard = ({ product, idx }: { product: any, idx: number }) => 
           ))}
         </div>
 
-        {/* Top Right Action Buttons */}
-        <div className="absolute right-3 top-3 flex flex-col gap-1.5 z-20">
-          <ActionButton icon={Heart} tooltip="Wishlist" isHovered={isHovered} delay={0.05} />
-          <ActionButton icon={Eye} tooltip="Quick View" isHovered={isHovered} delay={0.1} />
-          <ActionButton icon={Layers} tooltip="Compare" isHovered={isHovered} delay={0.15} />
-          <ActionButton icon={Share2} tooltip="Share" isHovered={isHovered} delay={0.2} />
+        {/* Centered Action Buttons (on hover) */}
+        <div className={`absolute inset-0 bg-black/40 backdrop-blur-[2px] z-20 flex items-center justify-center gap-4 transition-all duration-300 pointer-events-none rounded-t-[24px] ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="pointer-events-auto flex items-center gap-3">
+            <ActionButton icon={Heart} tooltip="Wishlist" isHovered={isHovered} delay={0.05} />
+            <ActionButton icon={Eye} tooltip="Quick View" isHovered={isHovered} delay={0.1} />
+            <ActionButton icon={Layers} tooltip="Compare" isHovered={isHovered} delay={0.15} />
+            <ActionButton icon={Share2} tooltip="Share" isHovered={isHovered} delay={0.2} />
+          </div>
         </div>
 
         {/* AI Recommendation Chip */}
@@ -410,13 +529,7 @@ const PremiumProductCard = ({ product, idx }: { product: any, idx: number }) => 
           ))}
         </div>
 
-        {/* Expanding Stats Section (Aroma/Body etc) */}
-        <div className="grid grid-cols-2 gap-x-3 gap-y-1 mb-2">
-          <StatBar label="Body" value={product.specs.body} isHovered={isHovered} />
-          <StatBar label="Sweetness" value={product.specs.sweetness} isHovered={isHovered} />
-          <StatBar label="Acidity" value={product.specs.acidity} isHovered={isHovered} />
-          <StatBar label="Aftertaste" value={product.specs.aftertaste} isHovered={isHovered} />
-        </div>
+        {/* Removed StatBars as requested */}
 
         {/* Ratings & Brew Methods */}
         <div className="flex items-center justify-between mb-2 pb-2 border-b border-foreground/5">
@@ -504,33 +617,18 @@ const PremiumProductCard = ({ product, idx }: { product: any, idx: number }) => 
 
 const ActionButton = ({ icon: Icon, tooltip, isHovered, delay }: { icon: any, tooltip: string, isHovered: boolean, delay: number }) => (
   <motion.div
-    initial={{ x: 15, opacity: 0 }}
-    animate={{ x: isHovered ? 0 : 15, opacity: isHovered ? 1 : 0 }}
+    initial={{ y: 15, opacity: 0 }}
+    animate={{ y: isHovered ? 0 : 15, opacity: isHovered ? 1 : 0 }}
     transition={{ duration: 0.3, delay }}
-    className="relative group/icon"
+    className="relative group/icon pointer-events-auto"
   >
-    <button className="h-7 w-7 rounded-full bg-background/60 backdrop-blur-xl border border-foreground/10 flex items-center justify-center text-foreground/70 hover:bg-accent hover:text-background hover:border-accent transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,213,79,0.5)] hover:scale-110">
-      <Icon className="w-3.5 h-3.5" />
+    <button className="h-10 w-10 rounded-full bg-background/80 backdrop-blur-xl border border-foreground/10 flex items-center justify-center text-foreground hover:bg-accent hover:text-background hover:border-accent transition-all duration-300 shadow-lg hover:shadow-[0_0_15px_rgba(255,213,79,0.5)] hover:scale-110">
+      <Icon className="w-4 h-4" />
     </button>
-    <div className="absolute right-full mr-2 top-1/2 -translate-y-1/2 px-2 py-1 bg-background/90 backdrop-blur-md border border-foreground/10 text-[8px] font-bold text-foreground whitespace-nowrap rounded opacity-0 invisible group-hover/icon:opacity-100 group-hover/icon:visible transition-all duration-300 shadow-xl">
+    <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-background/90 backdrop-blur-md border border-foreground/10 text-[9px] font-bold text-foreground whitespace-nowrap rounded opacity-0 invisible group-hover/icon:opacity-100 group-hover/icon:visible transition-all duration-300 shadow-xl z-50">
       {tooltip}
     </div>
   </motion.div>
 );
 
-const StatBar = ({ label, value, isHovered }: { label: string, value: number, isHovered: boolean }) => (
-  <div className="flex flex-col gap-1">
-    <div className="flex justify-between items-end">
-      <span className="text-[8px] text-foreground/60 font-bold uppercase tracking-wider">{label}</span>
-      <span className="text-[8px] text-accent font-black">{value}%</span>
-    </div>
-    <div className="w-full h-0.5 bg-foreground/10 rounded-full overflow-hidden">
-      <motion.div
-        initial={{ width: 0 }}
-        animate={{ width: isHovered ? `${value}%` : 0 }}
-        transition={{ duration: 1, delay: 0.1, ease: "easeOut" }}
-        className="h-full bg-gradient-to-r from-foreground/30 to-foreground"
-      />
-    </div>
-  </div>
-);
+
