@@ -31,10 +31,10 @@ const MACHINES_DATA = [
       'Dimensions (WxDxH)': '835 x 582 x 582 mm'
     },
     images: [
-      '/images/machines/machine1.png',
-      '/images/machines/machine2.png',
-      '/images/machines/machine3.png',
-      '/images/machines/machine4.png'
+      './images/machines/machine1.png',
+      './images/machines/machine2.png',
+      './images/machines/machine3.png',
+      './images/machines/machine4.png'
     ]
   },
   { 
@@ -63,10 +63,10 @@ const MACHINES_DATA = [
       'Weight': '14 kg'
     },
     images: [
-      '/images/machines/machine2.png',
-      '/images/machines/machine1.png',
-      '/images/machines/machine4.png',
-      '/images/machines/machine3.png'
+      './images/machines/machine2.png',
+      './images/machines/machine1.png',
+      './images/machines/machine4.png',
+      './images/machines/machine3.png'
     ]
   },
   { 
@@ -82,7 +82,7 @@ const MACHINES_DATA = [
     description: 'The La Cimbali M39 is designed to offer the ultimate barista experience. Engineered with advanced thermal stability, it allows for flawless extraction. Perfect for high-demand environments where quality cannot be compromised.',
     features: ['Thermal stability system', 'Smart boiler technology', 'Ergonomic steam wands', 'WiFi connectivity'],
     specs: { 'Boiler Capacity': '10 Liters', 'Power': '4200 W', 'Weight': '86 kg' },
-    images: ['/images/machines/machine4.png']
+    images: ['./images/machines/machine4.png']
   },
   { 
     id: 4, 
@@ -97,7 +97,7 @@ const MACHINES_DATA = [
     description: 'A dual boiler espresso machine featuring PID temperature control, a commercial rotary pump, and the classic E61 grouphead. This is the pinnacle of prosumer home or light commercial espresso.',
     features: ['Dual Boiler', 'PID Temperature Control', 'Rotary Pump', 'E61 Grouphead'],
     specs: { 'Brew Boiler': '0.58 Liters', 'Steam Boiler': '1.8 Liters', 'Power': '1400 W' },
-    images: ['/images/machines/machine3.png']
+    images: ['./images/machines/machine3.png']
   }
 ];
 

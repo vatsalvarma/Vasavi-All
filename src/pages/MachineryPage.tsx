@@ -7,12 +7,12 @@ const BRANDS = ['Astoria', 'CIME', 'LA Cimbali', 'Macap', 'Mazzer', 'My Espressi
 const CATEGORIES = ['A Series', 'Bakery', 'Barista Accessories', 'Blenders', 'Coffee Grinders', 'Espresso Machines'];
 
 const MACHINES = [
-  { id: 1, name: 'Astoria Sabrina', brand: 'Astoria', category: 'Espresso Machines', image: '/images/machines/machine1.png', price: '₹4,50,000' },
-  { id: 2, name: 'Mazzer Super Jolly Electronic', brand: 'Mazzer', category: 'Coffee Grinders', image: '/images/machines/machine2.png', price: '₹1,20,000' },
-  { id: 3, name: 'Super Jolly V Up', brand: 'Mazzer', category: 'Coffee Grinders', image: '/images/machines/machine3.png', price: '₹1,45,000' },
-  { id: 4, name: 'La Cimbali M39', brand: 'LA Cimbali', category: 'Espresso Machines', image: '/images/machines/machine4.png', price: '₹6,80,000' },
-  { id: 5, name: 'Rocket Espresso R58', brand: 'Rocket', category: 'Espresso Machines', image: '/images/machines/machine3.png', price: '₹2,50,000' },
-  { id: 6, name: 'Macap M42', brand: 'Macap', category: 'Coffee Grinders', image: '/images/machines/machine2.png', price: '₹85,000' },
+  { id: 1, name: 'Astoria Sabrina', brand: 'Astoria', category: 'Espresso Machines', image: './images/machines/machine1.png', price: '₹4,50,000' },
+  { id: 2, name: 'Mazzer Super Jolly Electronic', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,20,000' },
+  { id: 3, name: 'Super Jolly V Up', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine3.png', price: '₹1,45,000' },
+  { id: 4, name: 'La Cimbali M39', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹6,80,000' },
+  { id: 5, name: 'Rocket Espresso R58', brand: 'Rocket', category: 'Espresso Machines', image: './images/machines/machine3.png', price: '₹2,50,000' },
+  { id: 6, name: 'Macap M42', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹85,000' },
 ];
 
 export default function MachineryPage() {
