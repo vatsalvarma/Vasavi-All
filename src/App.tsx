@@ -13,6 +13,7 @@ import SellCafeWizardPage from '@/pages/SellCafeWizardPage'
 import BuildBlendPage from '@/pages/BuildBlendPage'
 import MachineryPage from '@/pages/MachineryPage'
 import MachineryDetailsPage from '@/pages/MachineryDetailsPage'
+import ServicePage from '@/pages/ServicePage'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { useEffect } from 'react'
@@ -61,6 +62,7 @@ function App() {
             <Route path="blend" element={<BuildBlendPage />} />
             <Route path="machinery" element={<MachineryPage />} />
             <Route path="machinery/:id" element={<MachineryDetailsPage />} />
+            <Route path="service" element={<ServicePage />} />
             {/* Add more routes here like Cart, Checkout, Profile */}
           </Route>
         </Routes>

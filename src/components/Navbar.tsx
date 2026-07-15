@@ -40,7 +40,7 @@ const Navbar = () => {
                   { name: 'Cafe', path: '/cafe' },
                   { name: 'Blender', path: '/blend' },
                   { name: 'Machinery', path: '/machinery' },
-                  { name: 'Journal', path: '#' }
+                  { name: 'Service', path: '/service' }
                 ].map((item) => (
                   <Link
                     key={item.name}
@@ -105,7 +105,7 @@ const Navbar = () => {
                   { name: 'Cafe', path: '/cafe' },
                   { name: 'Blender', path: '/blend' },
                   { name: 'Machinery', path: '/machinery' },
-                  { name: 'Journal', path: '#' }
+                  { name: 'Service', path: '/service' }
                 ].map((item) => (
                   <Link
                     key={item.name}

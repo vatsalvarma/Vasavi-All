@@ -93,7 +93,7 @@ const TopUtilityBar = () => {
               { label: 'Cafe', path: '/cafe' },
               { label: 'Blender', path: '/blend' },
               { label: 'Machinery', path: '/machinery' },
-              { label: 'Journal', path: '#' }
+              { label: 'Service', path: '/service' }
             ].map((item) => (
               <button
                 key={item.label}

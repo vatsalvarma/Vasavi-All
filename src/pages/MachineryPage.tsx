@@ -3,16 +3,63 @@ import { motion } from 'framer-motion';
 import { Filter, ChevronDown, Check } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const BRANDS = ['Astoria', 'CIME', 'LA Cimbali', 'Macap', 'Mazzer', 'My Espressino', 'NECTA', 'Rocket'];
-const CATEGORIES = ['A Series', 'Bakery', 'Barista Accessories', 'Blenders', 'Coffee Grinders', 'Espresso Machines'];
+const BRANDS = ['Astoria', 'CIME', 'Eversys', 'Gaggia', 'LA Cimbali', 'Macap', 'Mazzer', 'My Espressino', 'NECTA', 'Rocket'];
+const CATEGORIES = ['A Series', 'Bakery', 'Barista Accessories', 'Blenders', 'Coffee Grinders', 'Espresso Machines', 'Fully Automatic'];
 
 const MACHINES = [
+  // Existing
   { id: 1, name: 'Astoria Sabrina', brand: 'Astoria', category: 'Espresso Machines', image: './images/machines/machine1.png', price: '₹4,50,000' },
   { id: 2, name: 'Mazzer Super Jolly Electronic', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,20,000' },
   { id: 3, name: 'Super Jolly V Up', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine3.png', price: '₹1,45,000' },
   { id: 4, name: 'La Cimbali M39', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹6,80,000' },
   { id: 5, name: 'Rocket Espresso R58', brand: 'Rocket', category: 'Espresso Machines', image: './images/machines/machine3.png', price: '₹2,50,000' },
   { id: 6, name: 'Macap M42', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹85,000' },
+  
+  // New La Cimbali
+  { id: 7, name: 'La Cimbali M200', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹9,50,000' },
+  { id: 8, name: 'La Cimbali M40', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹5,20,000' },
+  { id: 9, name: 'La Cimbali M26 TE RE', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹4,10,000' },
+  { id: 10, name: 'La Cimbali M26', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹3,90,000' },
+  { id: 11, name: 'La Cimbali M23 UP', brand: 'LA Cimbali', category: 'Espresso Machines', image: './images/machines/machine4.png', price: '₹3,10,000' },
+  { id: 12, name: 'La Cimbali S60', brand: 'LA Cimbali', category: 'Fully Automatic', image: './images/machines/machine4.png', price: '₹12,50,000' },
+  { id: 13, name: 'La Cimbali Supera', brand: 'LA Cimbali', category: 'Fully Automatic', image: './images/machines/machine4.png', price: '₹8,00,000' },
+  { id: 14, name: 'La Cimbali S30', brand: 'LA Cimbali', category: 'Fully Automatic', image: './images/machines/machine4.png', price: '₹11,00,000' },
+  { id: 15, name: 'La Cimbali S20', brand: 'LA Cimbali', category: 'Fully Automatic', image: './images/machines/machine4.png', price: '₹9,00,000' },
+  { id: 16, name: 'La Cimbali Elective', brand: 'LA Cimbali', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹2,50,000' },
+  { id: 17, name: 'La Cimbali G50', brand: 'LA Cimbali', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,50,000' },
+  { id: 18, name: 'La Cimbali Conik', brand: 'LA Cimbali', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,80,000' },
+
+  // New Gaggia
+  { id: 19, name: 'Gaggia Accademia', brand: 'Gaggia', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹1,95,000' },
+  { id: 20, name: 'Gaggia Cadorna', brand: 'Gaggia', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹95,000' },
+  { id: 21, name: 'Gaggia Magenta', brand: 'Gaggia', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹85,000' },
+  { id: 22, name: 'Gaggia Anima', brand: 'Gaggia', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹75,000' },
+  { id: 23, name: 'Gaggia Brera', brand: 'Gaggia', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹60,000' },
+  { id: 24, name: 'Gaggia Classic GT', brand: 'Gaggia', category: 'Espresso Machines', image: './images/machines/machine3.png', price: '₹55,000' },
+  { id: 25, name: 'Gaggia Classic UP', brand: 'Gaggia', category: 'Espresso Machines', image: './images/machines/machine3.png', price: '₹45,000' },
+  { id: 26, name: 'Gaggia MDF', brand: 'Gaggia', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹25,000' },
+  { id: 27, name: 'Gaggia Tamper', brand: 'Gaggia', category: 'Barista Accessories', image: './images/machines/machine3.png', price: '₹2,500' },
+
+  // New Eversys
+  { id: 28, name: 'Eversys Legacy+', brand: 'Eversys', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹15,00,000' },
+  { id: 29, name: 'Eversys Cameo', brand: 'Eversys', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹18,50,000' },
+  { id: 30, name: 'Eversys Enigma', brand: 'Eversys', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹22,00,000' },
+  { id: 31, name: 'Eversys Shotmaster', brand: 'Eversys', category: 'Fully Automatic', image: './images/machines/machine1.png', price: '₹28,00,000' },
+  { id: 32, name: 'Eversys Everfoam', brand: 'Eversys', category: 'Barista Accessories', image: './images/machines/machine3.png', price: '₹1,50,000' },
+
+  // New Mazzer
+  { id: 33, name: 'Mazzer Philos', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,85,000' },
+  { id: 34, name: 'Mazzer ZM Plus', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹2,95,000' },
+  { id: 35, name: 'Mazzer Robur S', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹2,65,000' },
+  { id: 36, name: 'Mazzer Major V', brand: 'Mazzer', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,95,000' },
+  { id: 37, name: 'Mazzer Magnetic Dosing Cup', brand: 'Mazzer', category: 'Barista Accessories', image: './images/machines/machine3.png', price: '₹4,500' },
+
+  // New Macap
+  { id: 38, name: 'Macap SUPRA 68', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,25,000' },
+  { id: 39, name: 'Macap MI40 Pro', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹85,000' },
+  { id: 40, name: 'Macap Leo 55', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹45,000' },
+  { id: 41, name: 'Macap Labo 70D', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹1,65,000' },
+  { id: 42, name: 'Macap Studio', brand: 'Macap', category: 'Coffee Grinders', image: './images/machines/machine2.png', price: '₹55,000' },
 ];
 
 export default function MachineryPage() {

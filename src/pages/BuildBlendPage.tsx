@@ -25,13 +25,31 @@ import CoffeeMap from '@/components/CoffeeMap';
 
 // --- DATA ---
 const COFFEES = [
-  { id: 'ET', code: 'ET', name: 'Ethiopia Yirgacheffe', desc: 'Bright, fruity & flowery', type: 'Arabica', color: '#f59e0b' },
-  { id: 'CO', code: 'CO', name: 'Colombia Huila', desc: 'Sweet & balanced', type: 'Arabica', color: '#d97706' },
-  { id: 'BR', code: 'BR', name: 'Brazil Cerrado', desc: 'Nutty & chocolatey', type: 'Arabica', color: '#b45309' },
-  { id: 'KE', code: 'KE', name: 'Kenya Nyeri', desc: 'Bold & berry-tangy', type: 'Arabica', color: '#92400e' },
-  { id: 'GT', code: 'GT', name: 'Guatemala Antigua', desc: 'Rich, chocolatey & spiced', type: 'Arabica', color: '#78350f' },
-  { id: 'YE', code: 'YE', name: 'Yemen Mocha', desc: 'Wine-y & spiced', type: 'Arabica', color: '#451a03' },
-  { id: 'IN', code: 'IN', name: 'Chikmagalur Robusta', desc: 'Strong, earthy & heavy', type: 'Robusta', badge: 'AA grade', color: '#fcd34d' },
+  // Americas
+  { id: 'SV', code: 'SV', name: 'El Salvador', desc: 'Mild Acidity, Vanilla, Hazelnut', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'GT', code: 'GT', name: 'Guatemala Antigua', desc: 'Rich, chocolatey & spiced', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'HN', code: 'HN', name: 'Honduras', desc: 'Crisp, Nutty & Spicy', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'CR', code: 'CR', name: 'Costa Rica', desc: 'Citrus & Nutty', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'PA', code: 'PA', name: 'Panama Geisha', desc: 'Zesty & Lively, Lemongrass', type: 'Arabica', badge: 'Premium', color: '#3EC7FF', region: 'americas' },
+  { id: 'HI', code: 'HI', name: 'Hawaii Kona', desc: 'Low Acidity, Vanilla, Brown Sugar', type: 'Arabica', badge: 'Premium', color: '#3EC7FF', region: 'americas' },
+  { id: 'PE', code: 'PE', name: 'Peru', desc: 'Spicy, Nutty & Earthy', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'CO', code: 'CO', name: 'Colombia Huila', desc: 'Sweet & balanced', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  { id: 'BR', code: 'BR', name: 'Brazil Cerrado', desc: 'Nutty & chocolatey', type: 'Arabica', color: '#3EC7FF', region: 'americas' },
+  
+  // Africa
+  { id: 'RW', code: 'RW', name: 'Rwanda', desc: 'Chocolate, Floral & Nutty', type: 'Arabica', color: '#FF5A66', region: 'africa' },
+  { id: 'UG', code: 'UG', name: 'Uganda', desc: 'Full Body, Creamy Vanilla', type: 'Robusta', color: '#FF5A66', region: 'africa' },
+  { id: 'ET', code: 'ET', name: 'Ethiopia Yirgacheffe', desc: 'Bright, fruity & flowery', type: 'Arabica', color: '#FF5A66', region: 'africa' },
+  { id: 'KE', code: 'KE', name: 'Kenya Nyeri', desc: 'Bold & berry-tangy', type: 'Arabica', color: '#FF5A66', region: 'africa' },
+  
+  // Asia
+  { id: 'YE', code: 'YE', name: 'Yemen Mocha', desc: 'Wine-y & spiced', type: 'Arabica', badge: 'Premium', color: '#FFC642', region: 'asia' },
+  { id: 'IN', code: 'IN', name: 'Chikmagalur Robusta', desc: 'Strong, earthy & heavy', type: 'Robusta', badge: 'AA grade', color: '#FFC642', region: 'asia' },
+  { id: 'CN', code: 'CN', name: 'China Yunnan', desc: 'Chocolate & Smooth', type: 'Arabica', color: '#FFC642', region: 'asia' },
+  { id: 'PG', code: 'PG', name: 'Papua New Guinea', desc: 'Fruity & Nutty', type: 'Arabica', color: '#FFC642', region: 'asia' },
+  { id: 'ID', code: 'ID', name: 'Sumatra Mandheling', desc: 'Intense, Earthy & Woody', type: 'Arabica', color: '#FFC642', region: 'asia' },
+  { id: 'JV', code: 'JV', name: 'Java', desc: 'Nutty & Creamy', type: 'Arabica', color: '#FFC642', region: 'asia' },
+  { id: 'AU', code: 'AU', name: 'Australia Skybury', desc: 'Mild, Juicy & Syrupy', type: 'Arabica', badge: 'Premium', color: '#FFC642', region: 'asia' },
 ];
 
 const ROASTS = [
@@ -126,12 +144,18 @@ export default function BuildBlendPage() {
       const ratio = mix.percent / 100;
       if (!coffee) return;
       if (coffee.id === 'ET') { profile.Fruity += 50 * ratio; profile.Flowery += 60 * ratio; profile.Tangy += 30 * ratio; }
-      if (coffee.id === 'CO') { profile.Sweet += 60 * ratio; profile.Nutty += 20 * ratio; profile.Fruity += 20 * ratio; }
-      if (coffee.id === 'BR') { profile.Nutty += 70 * ratio; profile.Sweet += 40 * ratio; }
-      if (coffee.id === 'KE') { profile.Tangy += 60 * ratio; profile.Fruity += 40 * ratio; profile.Strong += 30 * ratio; }
-      if (coffee.id === 'GT') { profile.Spicy += 50 * ratio; profile.Sweet += 30 * ratio; profile.Nutty += 30 * ratio; }
-      if (coffee.id === 'YE') { profile.Spicy += 60 * ratio; profile.Fruity += 30 * ratio; }
-      if (coffee.id === 'IN') { profile.Strong += 80 * ratio; profile.Nutty += 30 * ratio; profile.Spicy += 20 * ratio; }
+      else if (coffee.id === 'CO') { profile.Sweet += 60 * ratio; profile.Nutty += 20 * ratio; profile.Fruity += 20 * ratio; }
+      else if (coffee.id === 'BR') { profile.Nutty += 70 * ratio; profile.Sweet += 40 * ratio; }
+      else if (coffee.id === 'KE') { profile.Tangy += 60 * ratio; profile.Fruity += 40 * ratio; profile.Strong += 30 * ratio; }
+      else if (coffee.id === 'GT') { profile.Spicy += 50 * ratio; profile.Sweet += 30 * ratio; profile.Nutty += 30 * ratio; }
+      else if (coffee.id === 'YE') { profile.Spicy += 60 * ratio; profile.Fruity += 30 * ratio; }
+      else if (coffee.id === 'IN') { profile.Strong += 80 * ratio; profile.Nutty += 30 * ratio; profile.Spicy += 20 * ratio; }
+      else {
+        // generic fallback based on region
+        if (coffee.region === 'americas') { profile.Sweet += 40 * ratio; profile.Nutty += 40 * ratio; profile.Fruity += 10 * ratio; }
+        else if (coffee.region === 'africa') { profile.Fruity += 40 * ratio; profile.Flowery += 40 * ratio; profile.Tangy += 10 * ratio; }
+        else { profile.Strong += 40 * ratio; profile.Spicy += 40 * ratio; profile.Nutty += 10 * ratio; }
+      }
     });
 
     // Roast modifiers
@@ -192,7 +216,7 @@ export default function BuildBlendPage() {
         }} 
       />
 
-      <div className="max-w-4xl mx-auto px-6 pt-16 pb-24">
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-24">
         
         {/* Page Title */}
         <div className="flex items-center gap-2 mb-10">
@@ -225,7 +249,7 @@ export default function BuildBlendPage() {
             Arabica — smoother & more delicate. Robusta — stronger & bolder, with more crema. "AA" just means extra-large, top-grade beans.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {COFFEES.map((coffee) => {
               const isSelected = selectedIds.includes(coffee.id);
               const isDisabled = !isSelected && selectedIds.length >= 4;
@@ -256,7 +280,13 @@ export default function BuildBlendPage() {
                   <div className="flex gap-2">
                     <span className="px-2 py-1 bg-muted text-foreground rounded text-[10px] font-bold">{coffee.type}</span>
                     {coffee.badge && (
-                      <span className="px-2 py-1 bg-accent/20 text-accent border border-accent/30 rounded text-[10px] font-bold">{coffee.badge}</span>
+                      <span className={`px-2 py-1 rounded text-[10px] font-bold border ${
+                        coffee.badge.toLowerCase() === 'premium' 
+                          ? 'bg-amber-500/20 text-amber-500 border-amber-500/30' 
+                          : 'bg-accent/20 text-accent border-accent/30'
+                      }`}>
+                        {coffee.badge}
+                      </span>
                     )}
                   </div>
                 </div>

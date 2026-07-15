@@ -133,21 +133,18 @@ export default function CoffeeMap({ onPickCoffee }: { onPickCoffee?: (name: stri
   }, []);
 
   return (
-    <section className="relative w-full h-[100vh] min-h-[900px] bg-gradient-to-b from-[#061320] via-[#071A2E] to-[#10253D] overflow-hidden flex flex-col items-center py-12 font-sans select-none">
+    <section className="relative w-full h-[75vh] min-h-[600px] bg-gradient-to-b from-[#061320] via-[#071A2E] to-[#10253D] overflow-hidden flex flex-col items-center py-0 font-sans select-none">
       
       {/* Background Effects */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(62,199,255,0.05)_0%,transparent_70%)] pointer-events-none"></div>
 
-      {/* Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}
-        className="relative z-20 text-center px-4 shrink-0 mt-8"
-      >
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-[0.15em] mb-4 uppercase">
-          COFFEE REGIONAL FLAVOR PROFILES
-        </h2>
-      </motion.div>
+      {/* Small Header */}
+      <div className="absolute top-6 md:top-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-full px-4">
+        <h3 className="text-[10px] md:text-xs font-bold text-white/40 tracking-[0.3em] md:tracking-[0.5em] uppercase">
+          Coffee Regional Flavor Profiles
+        </h3>
+      </div>
 
       {/* Map Container */}
       <motion.div 
@@ -227,7 +224,7 @@ export default function CoffeeMap({ onPickCoffee }: { onPickCoffee?: (name: stri
                 <motion.path
                   d={region.path}
                   fill="none"
-                  stroke={getColor(region.group)}
+                  stroke="white"
                   strokeWidth="1.5"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: isHovered ? 1 : 0, opacity: isHovered ? 0.8 : 0 }}
@@ -238,44 +235,27 @@ export default function CoffeeMap({ onPickCoffee }: { onPickCoffee?: (name: stri
                 <motion.line
                   x1={region.lx} y1={region.ly + 5}
                   x2={region.align === 'left' ? region.lx + 100 : region.lx - 100} y2={region.ly + 5}
-                  stroke={getColor(region.group)}
+                  stroke="white"
                   strokeWidth="1.5"
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: isHovered ? 1 : 0, opacity: isHovered ? 0.8 : 0 }}
                   transition={{ duration: 0.4, delay: isHovered ? 0.6 : 0, ease: "easeInOut" }}
                 />
                 
-                {/* Wave Animations (Ping) */}
+                {/* Continuous Wave (Ping) */}
                 <motion.circle
                   cx={region.cx} cy={region.cy}
                   fill="none"
-                  stroke={getColor(region.group)}
-                  strokeWidth="2"
-                  initial={{ r: 4, opacity: 0 }}
-                  animate={isHovered ? {
-                    r: [4, 14],
-                    opacity: [0.8, 0],
-                  } : { r: 4, opacity: 0 }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeOut"
+                  stroke="white"
+                  strokeWidth="1.5"
+                  initial={{ r: 3.5, opacity: 0 }}
+                  animate={{
+                    r: [3.5, 15],
+                    opacity: [0.6, 0],
                   }}
-                />
-                <motion.circle
-                  cx={region.cx} cy={region.cy}
-                  fill="none"
-                  stroke={getColor(region.group)}
-                  strokeWidth="1"
-                  initial={{ r: 4, opacity: 0 }}
-                  animate={isHovered ? {
-                    r: [4, 18],
-                    opacity: [0.4, 0],
-                  } : { r: 4, opacity: 0 }}
                   transition={{
                     duration: 1.5,
                     repeat: Infinity,
-                    delay: 0.75,
                     ease: "easeOut"
                   }}
                 />
@@ -283,11 +263,13 @@ export default function CoffeeMap({ onPickCoffee }: { onPickCoffee?: (name: stri
                 {/* Dot */}
                 <motion.circle 
                   cx={region.cx} cy={region.cy} 
-                  initial={{ r: 3.5, opacity: 0 }}
-                  animate={{ r: isHovered ? 4.5 : 3.5, opacity: isHovered ? 1 : 0 }}
-                  fill="#EFECE5" 
-                  stroke="#0a1b2d" strokeWidth="2.5"
-                  className="drop-shadow-[0_0_8px_currentColor]" 
+                  animate={{ 
+                    r: isHovered ? 5 : 3.5, 
+                    opacity: isHovered ? 1 : [0.3, 1, 0.3]
+                  }}
+                  transition={isHovered ? { duration: 0.2 } : { duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  fill="white" 
+                  className="drop-shadow-[0_0_10px_white]" 
                 />
               </g>
             );
