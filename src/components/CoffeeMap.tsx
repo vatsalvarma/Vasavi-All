@@ -129,7 +129,7 @@ export default function CoffeeMap({ onPickCoffee }: { onPickCoffee?: (name: stri
     const geojson = feature(worldData as any, (worldData as any).objects.countries);
     const proj = geoMercator().scale(180).translate([600, 360]); 
     const gen = geoPath().projection(proj);
-    return { geometries: geojson.features, pathGenerator: gen };
+    return { geometries: (geojson as any).features, pathGenerator: gen };
   }, []);
 
   return (
